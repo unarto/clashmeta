@@ -2,9 +2,7 @@ name: build_release
 on:
   push:
     # Sequence of patterns matched against refs/tags
-    tags:
-      - "v*"
-
+    
 jobs:
   BuildRelease:
     runs-on: ubuntu-latest
