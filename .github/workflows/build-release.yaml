@@ -4,7 +4,8 @@ on:
     # Sequence of patterns matched against refs/tags
     tags:
       - "v*"
-
+permissions:
+  contents: write
 jobs:
   BuildRelease:
     runs-on: ubuntu-latest
