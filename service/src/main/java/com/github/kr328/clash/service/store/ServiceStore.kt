@@ -22,12 +22,12 @@ class ServiceStore(context: Context) {
 
     var bypassPrivateNetwork: Boolean by store.boolean(
         key = "bypass_private_network",
-        defaultValue = true
+        defaultValue = false
     )
 
     var accessControlMode: AccessControlMode by store.enum(
         key = "access_control_mode",
-        defaultValue = AccessControlMode.AcceptAll,
+        defaultValue = AccessControlMode.DenySelected,
         values = AccessControlMode.values()
     )
 
@@ -48,7 +48,7 @@ class ServiceStore(context: Context) {
 
     var allowBypass by store.boolean(
         key = "allow_bypass",
-        defaultValue = true
+        defaultValue = false
     )
 
     var dynamicNotification by store.boolean(

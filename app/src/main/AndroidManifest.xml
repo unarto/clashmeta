@@ -60,15 +60,31 @@
             android:label="@string/import_from_file"
             android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen">
             <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="text/plain" />
+            </intent-filter>
+            <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
-
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
-                <data android:scheme="clash"/>
-                <data android:scheme="clashmeta"/>
-                <data android:host="install-config"/>
+                <data android:scheme="clash" />
+                <data android:scheme="clashmeta" />
+                <data android:scheme="sn" />
+                <data android:scheme="ss" />
+                <data android:scheme="ssr" />
+                <data android:scheme="socks" />
+                <data android:scheme="socks4" />
+                <data android:scheme="socksa" />
+                <data android:scheme="sock5" />
+                <data android:scheme="vmess" />
+                <data android:scheme="vless" />
+                <data android:scheme="trojan" />
+                <data android:scheme="trojan-go" />
+
             </intent-filter>
+
         </activity>
         <activity
             android:name=".ApkBrokenActivity"

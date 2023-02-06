@@ -6,6 +6,9 @@
             name="self"
             type="com.github.kr328.clash.design.MainDesign" />
         <variable
+            name="profile"
+            type="com.github.kr328.clash.service.model.Profile" />
+        <variable
             name="clashRunning"
             type="boolean" />
         <variable
@@ -76,7 +79,25 @@
                         android:text="@string/application_name"
                         android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6" />
                 </LinearLayout>
+                <com.google.android.material.tabs.TabLayout
+                    android:layout_width="match_parent"
+                    android:id="@+id/set_mode"
 
+                    android:layout_height="wrap_content">
+
+                    <com.google.android.material.tabs.TabItem
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/rule_mode"
+                        android:id="@+id/set_rule_mode"/>
+
+                    <com.google.android.material.tabs.TabItem
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/global_mode"
+                        android:id="@+id/set_global_mode"/>
+
+                </com.google.android.material.tabs.TabLayout>
                 <com.github.kr328.clash.design.view.LargeActionCard
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -98,14 +119,24 @@
                     app:subtext="@{mode}"
                     app:text="@string/proxy" />
 
-                <com.github.kr328.clash.design.view.LargeActionCard
+                <com.github.kr328.clash.design.view.ProfileActionCard
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginVertical="@dimen/main_card_margin_vertical"
-                    android:onClick="@{() -> self.request(Request.OpenProfiles)}"
+                    app:onClick="@{() -> self.request(Request.OpenProfiles)}"
                     app:icon="@drawable/ic_baseline_view_list"
-                    app:subtext="@{profileName != null ? @string/format_profile_activated(profileName) : @string/not_selected}"
-                    app:text="@string/profile" />
+                    app:profile="@{profile}"
+                    app:onUpdate="@{() -> self.request(Request.UpdateProfile)}"
+                    />
+<!--                <com.github.kr328.clash.design.view.LargeActionCard-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginVertical="@dimen/main_card_margin_vertical"-->
+<!--                    android:onClick="@{() -> self.request(Request.OpenProfiles)}"-->
+<!--                    app:icon="@drawable/ic_baseline_view_list"-->
+<!--                    app:subtext="@{profileName != null ? @string/format_profile_activated(profileName) : @string/not_selected}"-->
+<!--                    app:text="@string/profile" />-->
+
 
                 <com.github.kr328.clash.design.view.LargeActionLabel
                     android:layout_width="match_parent"
@@ -120,9 +151,17 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginVertical="@dimen/main_label_margin_vertical"
-                    android:onClick="@{() -> self.request(Request.OpenLogs)}"
+                    android:onClick="@{() -> self.request(Request.CreateClipboard)}"
                     app:icon="@drawable/ic_baseline_assignment"
-                    app:text="@string/logs" />
+                    app:text="@string/new_clipboard" />
+                <com.github.kr328.clash.design.view.LargeActionLabel
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="@dimen/main_label_margin_vertical"
+                    android:onClick="@{() -> self.request(Request.OpenIP)}"
+                    app:icon="@drawable/ic_baseline_vpn_lock"
+                    app:text="@string/what_is_my_ip" />
+
 
                 <com.github.kr328.clash.design.view.LargeActionLabel
                     android:layout_width="match_parent"
@@ -131,22 +170,14 @@
                     android:onClick="@{() -> self.request(Request.OpenSettings)}"
                     app:icon="@drawable/ic_baseline_settings"
                     app:text="@string/settings" />
-
                 <com.github.kr328.clash.design.view.LargeActionLabel
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginVertical="@dimen/main_label_margin_vertical"
                     android:onClick="@{() -> self.request(Request.OpenHelp)}"
                     app:icon="@drawable/ic_baseline_help_center"
-                    app:text="@string/help" />
+                    app:text="@string/hiddify_help" />
 
-                <com.github.kr328.clash.design.view.LargeActionLabel
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginVertical="@dimen/main_label_margin_vertical"
-                    android:onClick="@{() -> self.request(Request.OpenAbout)}"
-                    app:icon="@drawable/ic_baseline_info"
-                    app:text="@string/about" />
             </LinearLayout>
         </ScrollView>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

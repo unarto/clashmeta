@@ -1,21 +1,24 @@
-name: build_pre_release
+name: build_release
 on:
-  workflow_dispatch:
+  push:
+    # Sequence of patterns matched against refs/tags
+    tags:
+      - "v*"
 
 jobs:
-  BuildPreRelease:
+  BuildRelease:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
-      
+
       - name: Checkout submodules
         run: git submodule update --init --recursive --remote
 
       - name: Setup Java
         uses: actions/setup-java@v3
         with:
-          distribution: 'zulu'
+          distribution: "zulu"
           java-version: 17
 
       - name: Setup Go
@@ -46,32 +49,19 @@ jobs:
           echo "cat signing.properties"
           cat signing.properties
 
-      - name: Pre-release Build
+      - name: release Build
         if: success()
         uses: gradle/gradle-build-action@v2
         with:
           arguments: --no-daemon app:assembleMeta-AlphaRelease
 
-      - name: Delete current release assets
-        uses: andreaswilli/delete-release-assets-action@v2.0.0
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          tag: Prerelease-alpha
-          deleteOnlyFromDrafts: false
-
-      - name: Tag Repo
-        uses: richardsimko/update-tag@v1
-        with:
-          tag_name: Prerelease-alpha
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
       - name: Upload Alpha
         uses: softprops/action-gh-release@v1
         if: ${{  success() }}
         with:
-          tag: ${{ github.ref_name }}
-          tag_name: Prerelease-alpha
+          # tag: ${{ github.ref_name }}
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
           files: app/build/outputs/apk/meta-alpha/release/*
-          prerelease: true
+          prerelease: false
           generate_release_notes: true

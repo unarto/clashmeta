@@ -11,10 +11,11 @@
             name="clicked"
             type="android.view.View.OnClickListener" />
         <variable
-            name="menu"
+            name="update"
             type="android.view.View.OnClickListener" />
         <import type="android.view.View" />
         <import type="com.github.kr328.clash.design.util.I18nKt" />
+        <import type="com.github.kr328.clash.service.model.Profile.Type" />
         <import type="com.github.kr328.clash.design.util.IntervalKt" />
     </data>
 
@@ -23,25 +24,24 @@
         android:id="@+id/root_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginVertical="5dp"
-        android:layout_marginHorizontal="@dimen/item_header_margin"
-        android:background="@drawable/bg_b"
+
         android:clickable="true"
         android:focusable="true"
         android:minHeight="@dimen/item_min_height"
+
         android:nextFocusRight="@id/menu_view"
         android:onClick="@{clicked}">
 
-        <RadioButton
+
+
+        <View
             android:id="@+id/icon_view"
             android:layout_width="@dimen/item_header_component_size"
             android:layout_height="@dimen/item_header_component_size"
             android:layout_centerVertical="true"
+            android:gravity="center"
             android:layout_marginHorizontal="@dimen/item_header_margin"
-            android:checked="@{profile.active}"
-            android:clickable="false"
-            android:focusable="false"
-            android:gravity="center" />
+             />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -55,14 +55,14 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{profile.name}"
+                android:text="@{profile.name!=null? profile.name : @string/not_selected}"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/item_text_margin"
-                android:text='@{(profile.pending ? @string/format_type_unsaved(I18nKt.toString(profile.type, context)) : I18nKt.toString(profile.type, context))+"   "+IntervalKt.elapsedIntervalString(currentTime.value - profile.updatedAt, context)}'
+                android:text='@{"Updated: "+IntervalKt.elapsedIntervalString(currentTime.value - profile.updatedAt, context)}'
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body2" />
             <ProgressBar
                 style="?android:attr/progressBarStyleHorizontal"
@@ -99,20 +99,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:visibility="@{profile.expire==0 ? View.GONE : View.VISIBLE}"
-                android:text='@{profile.expire>0 ? I18nKt.toDateStr(profile.expire):""}'
+                android:text='@{profile.expire>0 ? "Expire: "+I18nKt.toDateStr(profile.expire):""}'
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
 
         </LinearLayout>
-
-        <!--<TextView
-            android:id="@+id/elapsed_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginEnd="@dimen/item_midden_margin"
-            android:layout_toStartOf="@id/menu_view"
-            android:text="@{IntervalKt.elapsedIntervalString(currentTime.value - profile.updatedAt, context)}"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Tooltip" />-->
 
         <View
             android:layout_width="2dp"
@@ -130,13 +120,14 @@
             android:clickable="true"
             android:focusable="true"
             android:nextFocusLeft="@id/root_view"
-            android:onClick="@{menu}">
+            android:visibility="@{profile.imported &amp;&amp; profile.type != Type.File ? View.VISIBLE : View.GONE}"
+            android:onClick="@{update}">
 
             <View
                 android:layout_width="@dimen/item_tailing_component_size"
                 android:layout_height="@dimen/item_tailing_component_size"
                 android:layout_margin="@dimen/item_tailing_margin"
-                android:background="@drawable/ic_baseline_more_vert" />
+                android:background="@drawable/ic_baseline_replay" />
         </FrameLayout>
     </RelativeLayout>
 </layout>

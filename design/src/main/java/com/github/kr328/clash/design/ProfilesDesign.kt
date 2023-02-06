@@ -18,6 +18,7 @@ class ProfilesDesign(context: Context) : Design<ProfilesDesign.Request>(context)
     sealed class Request {
         object UpdateAll : Request()
         object Create : Request()
+        object CreateClipboard : Request()
         data class Active(val profile: Profile) : Request()
         data class Update(val profile: Profile) : Request()
         data class Edit(val profile: Profile) : Request()
@@ -32,7 +33,8 @@ class ProfilesDesign(context: Context) : Design<ProfilesDesign.Request>(context)
     override val root: View
         get() = binding.root
 
-    suspend fun patchProfiles(profiles: List<Profile>) {
+    suspend fun patchProfiles(profilesNotSorted: List<Profile>) {
+        var profiles=profilesNotSorted.sortedBy { -it.updatedAt }
         adapter.apply {
             patchDataSet(this::profiles, profiles, id = { it.uuid })
         }
@@ -89,6 +91,9 @@ class ProfilesDesign(context: Context) : Design<ProfilesDesign.Request>(context)
 
     fun requestCreate() {
         requests.trySend(Request.Create)
+    }
+    fun requestCreateClipboard() {
+        requests.trySend(Request.CreateClipboard)
     }
 
     private fun requestActive(profile: Profile) {

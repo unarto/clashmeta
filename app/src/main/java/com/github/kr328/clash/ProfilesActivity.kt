@@ -1,11 +1,13 @@
 package com.github.kr328.clash
 
+import android.content.ClipboardManager
 import com.github.kr328.clash.common.util.intent
 import com.github.kr328.clash.common.util.setUUID
 import com.github.kr328.clash.common.util.ticker
 import com.github.kr328.clash.design.ProfilesDesign
 import com.github.kr328.clash.service.model.Profile
 import com.github.kr328.clash.util.withProfile
+import com.hiddify.clash.Utils
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.selects.select
 import java.util.concurrent.TimeUnit
@@ -13,7 +15,7 @@ import java.util.concurrent.TimeUnit
 class ProfilesActivity : BaseActivity<ProfilesDesign>() {
     override suspend fun main() {
         val design = ProfilesDesign(this)
-
+        var context=this
         setContentDesign(design)
 
         val ticker = ticker(TimeUnit.MINUTES.toMillis(1))
@@ -32,6 +34,11 @@ class ProfilesActivity : BaseActivity<ProfilesDesign>() {
                     when (it) {
                         ProfilesDesign.Request.Create ->
                             startActivity(NewProfileActivity::class.intent)
+                        ProfilesDesign.Request.CreateClipboard ->{
+                            val clipboard = getSystemService(CLIPBOARD_SERVICE) as ClipboardManager
+                            Utils.addClashProfile(context,clipboard.getText().toString());
+//                            startActivity(NewProfileActivity::class.intent)
+                        }
                         ProfilesDesign.Request.UpdateAll ->
                             withProfile {
                                 queryAll().forEach { p ->

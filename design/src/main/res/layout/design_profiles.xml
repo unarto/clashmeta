@@ -62,12 +62,14 @@
                         android:visibility="gone" />
                 </FrameLayout>
 
+
                 <ImageView
                     android:id="@+id/add_view"
                     android:layout_width="@dimen/item_tailing_component_size"
                     android:layout_height="@dimen/item_tailing_component_size"
-                    android:layout_alignParentEnd="true"
+
                     android:layout_centerVertical="true"
+                    android:layout_toStartOf="@id/add_viewClipboard"
                     android:layout_gravity="end|center_vertical"
                     android:layout_marginStart="@dimen/item_tailing_margin"
                     android:background="?attr/selectableItemBackgroundBorderless"
@@ -77,6 +79,21 @@
                     android:onClick="@{() -> self.requestCreate()}"
                     android:padding="@dimen/toolbar_image_action_padding"
                     android:src="@drawable/ic_baseline_add" />
+                <ImageView
+                    android:id="@+id/add_viewClipboard"
+                    android:layout_width="@dimen/item_tailing_component_size"
+                    android:layout_height="@dimen/item_tailing_component_size"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="end|center_vertical"
+                    android:layout_marginStart="@dimen/item_tailing_margin"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:clickable="true"
+                    android:contentDescription="@string/new_clipboard"
+                    android:focusable="true"
+                    android:onClick="@{() -> self.requestCreateClipboard()}"
+                    android:padding="@dimen/toolbar_image_action_padding"
+                    android:src="@drawable/ic_baseline_assignment" />
 
             </RelativeLayout>
         </com.github.kr328.clash.design.view.ActivityBarLayout>

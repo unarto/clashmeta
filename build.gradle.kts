@@ -34,7 +34,7 @@ subprojects {
     extensions.configure<BaseExtension> {
         defaultConfig {
             if (isApp) {
-                applicationId = "com.github.metacubex.clash"
+                applicationId = "com.hiddify.hiddifyproxy"
             }
 
             minSdk = 21
@@ -42,6 +42,9 @@ subprojects {
 
             versionName = "2.6.5"
             versionCode = 206005
+            
+            versionName += "-h0.9"
+            versionCode = versionCode*1000+9
 
             resValue("string", "release_name", "v$versionName")
             resValue("integer", "release_code", "$versionCode")
@@ -55,7 +58,7 @@ subprojects {
             if (!isApp) {
                 consumerProguardFiles("consumer-rules.pro")
             } else {
-                setProperty("archivesBaseName", "cmfa-$versionName")
+                setProperty("archivesBaseName", "hiddify-$versionName")
             }
         }
 
@@ -77,7 +80,7 @@ subprojects {
             create("meta-alpha") {
                 isDefault = true
                 dimension = flavorDimensionList[0]
-                versionNameSuffix = ".Meta-Alpha"
+                versionNameSuffix = ".Alpha"
 
                 buildConfigField("boolean", "PREMIUM", "Boolean.parseBoolean(\"false\")")
 

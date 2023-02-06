@@ -126,16 +126,16 @@ class ProfileManager(private val context: Context) : IProfileManager,
         }
     }
 
-    override suspend fun update(uuid: UUID) {
+    override suspend fun update(uuid: UUID,removeFails: Boolean) {
         scheduleUpdate(uuid, true)
         ImportedDao().queryByUUID(uuid)?.let {
             if (it.type == Profile.Type.Url && it.source.startsWith("https://",true)) {
-                updateFlow(it)
+                updateFlow(it,removeFails)
             }
         }
     }
 
-    suspend fun updateFlow(old: Imported) {
+    suspend fun updateFlow(old: Imported,removeFails:Boolean=false) {
         val client = OkHttpClient()
         try {
             val request = Request.Builder()
@@ -144,7 +144,10 @@ class ProfileManager(private val context: Context) : IProfileManager,
                 .build()
 
             client.newCall(request).execute().use { response ->
-                if (!response.isSuccessful || response.headers["subscription-userinfo"] == null) return
+                if (!response.isSuccessful || response.headers["subscription-userinfo"] == null) {
+                    ImportedDao().remove(old.uuid)
+                    return
+                }
 
                 var upload: Long = 0
                 var download: Long = 0

@@ -174,8 +174,8 @@ class ProfileWorker : BaseService() {
             .setContentText(getString(R.string.format_update_complete, name))
             .build()
 
-        NotificationManagerCompat.from(this)
-            .notify(id, notification)
+//        NotificationManagerCompat.from(this)
+//            .notify(id, notification)
     }
 
     private fun failed(uuid: UUID, name: String, reason: String) {
@@ -190,7 +190,7 @@ class ProfileWorker : BaseService() {
             .build()
 
         NotificationManagerCompat.from(this)
-            .notify(id, notification)
+            .notify(uuid.hashCode(), notification)
     }
 
     companion object {
