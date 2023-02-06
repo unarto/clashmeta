@@ -63,6 +63,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/item_text_margin"
                 android:text='@{"Updated: "+IntervalKt.elapsedIntervalString(currentTime.value - profile.updatedAt, context)}'
+                android:visibility="@{profile.imported &amp;&amp; profile.type != Type.File ? View.VISIBLE : View.GONE}"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body2" />
             <ProgressBar
                 style="?android:attr/progressBarStyleHorizontal"
