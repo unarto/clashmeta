@@ -40,6 +40,8 @@ subprojects {
             minSdk = 21
             targetSdk = 31
 
+            var versionCode = 0
+
             versionName = "2.6.5"
             versionCode = 206005
             
