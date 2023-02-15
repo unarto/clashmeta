@@ -114,6 +114,7 @@ object Utils {
         yml["external-controller"] = "127.0.0.1:9090"
         yml["ipv6"] = false
         yml["mode"] = "rule"
+        yml["global-client-fingerprint"] = "chrome"
         yml["dns"]= mutableMapOf(
         "enable" to true,
         "use-hosts" to true,
