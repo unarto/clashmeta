@@ -42,8 +42,8 @@ subprojects {
 
             var versionCode = 0
 
-            versionName = "2.6.5"
-            versionCode = 206005
+            versionName = "2.6.6"
+            versionCode = 206006
             
             versionName += "-h0.9"
             versionCode = versionCode*1000+9
