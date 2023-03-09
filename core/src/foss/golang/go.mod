@@ -40,10 +40,10 @@ require (
 	github.com/lunixbochs/struc v0.0.0-20200707160740-784aaebc1d40 // indirect
 	github.com/mdlayher/netlink v1.7.2-0.20221213171556-9881fafed8c7 // indirect
 	github.com/mdlayher/socket v0.4.0 // indirect
-	github.com/metacubex/gvisor v0.0.0-20230222112937-bdbcd206ec65 // indirect
+	github.com/metacubex/gvisor v0.0.0-20230304153416-e2bb9c726005 // indirect
 	github.com/metacubex/quic-go v0.32.0 // indirect
 	github.com/metacubex/sing-shadowsocks v0.1.1-0.20230226153717-4e80da7e6947 // indirect
-	github.com/metacubex/sing-tun v0.1.1-0.20230222113101-fbfa2dab826d // indirect
+	github.com/metacubex/sing-tun v0.1.1-0.20230304153753-5058534177f3 // indirect
 	github.com/metacubex/sing-wireguard v0.0.0-20230213124601-d04406a109b4 // indirect
 	github.com/miekg/dns v1.1.50 // indirect
 	github.com/mroth/weightedrand/v2 v2.0.1 // indirect
@@ -56,16 +56,17 @@ require (
 	github.com/quic-go/qtls-go1-20 v0.1.1 // indirect
 	github.com/sagernet/go-tun2socks v1.16.12-0.20220818015926-16cb67876a61 // indirect
 	github.com/sagernet/netlink v0.0.0-20220905062125-8043b4a9aa97 // indirect
-	github.com/sagernet/sing v0.1.8-0.20230226150041-83d9121b04c6 // indirect
-	github.com/sagernet/sing-shadowtls v0.0.0-20230221130515-dac782ca098e // indirect
-	github.com/sagernet/sing-vmess v0.1.3-0.20230226144228-40c1abdb85be // indirect
+	github.com/sagernet/sing v0.1.8-0.20230307054559-0560a4da412b // indirect
+	github.com/sagernet/sing-shadowtls v0.1.0 // indirect
+	github.com/sagernet/sing-vmess v0.1.3-0.20230307060529-d110e81a50bc // indirect
 	github.com/sagernet/tfo-go v0.0.0-20230207095944-549363a7327d // indirect
-	github.com/sagernet/utls v0.0.0-20230220130002-c08891932056 // indirect
+	github.com/sagernet/utls v0.0.0-20230309024959-6732c2ab36f2 // indirect
 	github.com/sagernet/wireguard-go v0.0.0-20221116151939-c99467f53f2c // indirect
 	github.com/samber/lo v1.37.0 // indirect
 	github.com/sirupsen/logrus v1.9.0 // indirect
 	github.com/vishvananda/netns v0.0.4 // indirect
 	github.com/xtls/go v0.0.0-20230107031059-4610f88d00f3 // indirect
+	github.com/zhangyunhao116/fastrand v0.3.0 // indirect
 	go.etcd.io/bbolt v1.3.7 // indirect
 	go.uber.org/atomic v1.10.0 // indirect
 	golang.org/x/crypto v0.6.0 // indirect
