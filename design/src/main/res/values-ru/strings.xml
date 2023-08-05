@@ -111,9 +111,9 @@
     <string name="allow_clash_auto_restart">Разрешить Clash автоматически перезапускаться</string>
 
     <string name="route_system_traffic">Маршрутизировать системный трафик</string>
-    <string name="routing_via_vpn_service">Автоматически маршрутизировать весь системный трафик через VpnService</string>
+    <string name="routing_via_vpn_service">Автоматически маршрутизировать весь системный трафик через VPN</string>
 
-    <string name="vpn_service_options">Настройки VpnService</string>
+    <string name="vpn_service_options">Настройки VPN</string>
     <string name="bypass_private_network">Игнорировать частные сети</string>
     <string name="bypass_private_network_summary">Игнорировать адреса частных сетей</string>
     <string name="dns_hijacking">Перехват DNS</string>
@@ -121,9 +121,9 @@
     <string name="block_loopback">Заблокировать loopback</string>
     <string name="block_loopback_summary">Заблокировать loopback-соединения</string>
     <string name="allow_bypass">Разрешить обход</string>
-    <string name="allow_bypass_summary">Разрешить всем приложениям обходить это VPN соединение</string>
+    <string name="allow_bypass_summary">Разрешить приложениям обходить VPN соединение</string>
     <string name="system_proxy">Системный прокси</string>
-    <string name="system_proxy_summary">Добавить http прокси к VpnService</string>
+    <string name="system_proxy_summary">Дополнительно запустить HTTP прокси, помимо VPN</string>
     <string name="access_control_mode">Режим контроля доступа</string>
     <string name="access_control_packages">Приложения с контролируемым доступом</string>
     <string name="access_control_packages_summary">Настройте доступ для приложения</string>
