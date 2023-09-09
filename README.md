@@ -46,3 +46,14 @@ Feature of [Clash.Meta](https://github.com/MetaCubeX/Clash.Meta)
    ```bash
    ./gradlew app:assembleMeta-AlphaRelease
    ```
+### Some features that are unavailable because they are somehow infeasible in principle:
+
+1. Hysteria's FakeTCP mode: Superuser privilege, i.e. Root privilege, is required to run FakeTCP mode, which is currently unavailable in Clash Meta for Android.
+
+2. Tunnels function: Because the TUN stack used by Clash Meta for Android is not Sing-TUN but Tun2Socket, so it can't be used.
+
+3. Process Rules: After version 2.8.5, the implementation of getting process names has been changed, so it can't be used on Clash Meta for Android due to insufficient privileges to get the corresponding package names.
+
+4. GeoXUrl parameter: Because Clash Meta uses Geo database, there is no corresponding implementation of this function in the original Clash for Android, if we switch the kernel directly, it will lead to the Geo database can not be saved locally, so we added an additional implementation of saving Geo database, which also leads to the inability to set the GeoXUrl parameter.
+
+You can install Box4Magisk module to use the above function after getting Superuser privilege, i.e. Root privilege.
