@@ -20,12 +20,14 @@ jobs:
 
       - name: Update Foss Gomod
         run: |
+          go env -w GOPROXY=https://goproxy.io,direct
           cd ./core/src/foss/golang/
           go mod download
           go mod tidy
 
       - name: Update Main Gomod
         run: |
+          go env -w GOPROXY=https://goproxy.io,direct
           cd ./core/src/main/golang/
           go mod download
           go mod tidy
