@@ -46,7 +46,7 @@ jobs:
 
       - name: Update Main Gomod
         run: |
-          cd ${{ github.workspace }}/core/src/main/golang/
+          cd ${{ github.workspace }}/core/src/main/golang/native/
           go get -u
 
       - name: Create Pull Request
