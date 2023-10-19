@@ -5,6 +5,11 @@ on:
     tags:
       - '*' #
   workflow_dispatch:
+    inputs:
+      auto-bump-version:
+        description: 'Bump project version before building release'
+        required: false
+        type: boolean
 
 jobs:
   BuildRelease:
@@ -35,6 +40,25 @@ jobs:
           key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
           restore-keys: |
             ${{ runner.os }}-go-
+      
+      - name: Auto bump project version
+        if: ${{ inputs.auto-bump-version }}
+        run: |
+          # Update versionName and versionCode in build.gradle.kts
+          versionCode=$(grep -oP 'versionCode = \K\d+' build.gradle.kts)
+          versionName=$(grep -oP 'versionName = "\K[0-9.]+' build.gradle.kts)
+          major=$(echo $versionName | cut -d. -f1)
+          minor=$(echo $versionName | cut -d. -f2)
+          patch=$(echo $versionName | cut -d. -f3)
+          newPatch=$((patch + 1))
+          newVersionName="$major.$minor.$newPatch"
+          newVersionCode=$((versionCode + 1))
+          sed -i "s/versionCode = $versionCode/versionCode = $newVersionCode/" build.gradle.kts
+          sed -i "s/versionName = \"$versionName\"/versionName = \"$newVersionName\"/" build.gradle.kts
+          # Commit, tag and push
+          git commit -am "Bump version to $newVersionName ($newVersionCode)"
+          git tag "v$newVersionName"
+          git push --follow-tags
 
       - name: Signing properties
         env:
