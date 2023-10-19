@@ -41,12 +41,12 @@ jobs:
 
       - name: Update Foss Gomod
         run: |
-          cd ./core/src/foss/golang/
+          cd ${{ github.workspace }}/core/src/foss/golang/
           go get -u
 
       - name: Update Main Gomod
         run: |
-          cd ./core/src/main/golang/
+          cd ${{ github.workspace }}/core/src/main/golang/
           go get -u
 
       - name: Create Pull Request
