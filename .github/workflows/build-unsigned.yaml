@@ -1,8 +1,7 @@
 name: Build Unsigned
 on:
   pull_request:
-    branches:
-      - '*'
+    types: [opened, reopened, synchronize]
   workflow_dispatch:
 
 jobs:
