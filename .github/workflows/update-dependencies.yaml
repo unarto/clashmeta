@@ -42,14 +42,12 @@ jobs:
       - name: Update Foss Gomod
         run: |
           cd ./core/src/foss/golang/
-          go mod download
-          go mod tidy
+          go get -u
 
       - name: Update Main Gomod
         run: |
           cd ./core/src/main/golang/
-          go mod download
-          go mod tidy
+          go get -u
 
       - name: Create Pull Request
         id: cpr
