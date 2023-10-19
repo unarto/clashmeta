@@ -1,5 +1,8 @@
 name: Update meta-core and go modules
 on:
+  repository_dispatch:
+    types:
+      - core-updated
   workflow_dispatch:
 
 jobs:
@@ -58,11 +61,10 @@ jobs:
           title: 'Update Dependencies'
           draft: false
           body: |
-            Update Dependencies
             - Update Clash-Meta Core
-            - Update Go Modules
+            - Update Go Module Dependecies.
           labels: |
-            update
+            Update
         
       - name: Create PR outputs
         if: ${{ steps.cpr.outputs.pull-request-number }}
