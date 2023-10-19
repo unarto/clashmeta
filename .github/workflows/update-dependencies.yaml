@@ -1,4 +1,4 @@
-name: Update meta-core and go modules
+name: Update Clash-Core and Go Modules
 on:
   repository_dispatch:
     types:
@@ -45,11 +45,11 @@ jobs:
           go mod download
           go mod tidy
 
-      - name: Update Main Gomod
-        run: |
-          cd ./core/src/main/golang/
-          go mod download
-          go mod tidy
+      # - name: Update Main Gomod
+      #   run: |
+      #     cd ./core/src/main/golang/
+      #     go mod download
+      #     go mod tidy
 
       - name: Create Pull Request
         id: cpr
