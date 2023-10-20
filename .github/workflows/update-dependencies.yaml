@@ -47,10 +47,10 @@ jobs:
           cd ${{ github.workspace }}/core/src/foss/golang/
           go get -u
 
-      # - name: Update Main Gomod
-      #   run: |
-      #     cd ${{ github.workspace }}/core/src/main/golang/native/
-      #     go get -u
+      - name: Update Main Gomod
+        run: |
+          cd ${{ github.workspace }}/core/src/main/golang/native/
+          go get -u
 
       - name: Create Pull Request
         id: cpr
