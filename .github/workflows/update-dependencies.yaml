@@ -42,10 +42,10 @@ jobs:
         run: |
           ./gradlew :core:downloadGeoipDatabase
 
-      - name: Update Foss Gomod
-        run: |
-          cd ${{ github.workspace }}/core/src/foss/golang/
-          go get -u
+      # - name: Update Foss Gomod
+      #   run: |
+      #     cd ${{ github.workspace }}/core/src/foss/golang/
+      #     go get -u
 
       # - name: Update Main Gomod
       #   run: |
