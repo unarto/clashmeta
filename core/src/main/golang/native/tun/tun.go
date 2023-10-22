@@ -97,7 +97,7 @@ func Start(fd int, gateway, portal, dns string) (io.Closer, error) {
 				continue
 			}
 
-			tunnel.Tunnel.HandleTCPConn(conn, createMetadata(lAddr, rAddr))
+			go tunnel.Tunnel.HandleTCPConn(conn, createMetadata(lAddr, rAddr))
 		}
 	}
 
