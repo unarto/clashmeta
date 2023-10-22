@@ -2,7 +2,7 @@ name: Update Clash-Core and Go Modules
 on:
   push:   # only for test
     branches:
-      - "add-actions"
+      - "**"
   repository_dispatch:
     types:
       - core-updated
