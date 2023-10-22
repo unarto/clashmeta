@@ -3,8 +3,8 @@ module cfa
 go 1.20
 
 require (
-	github.com/Dreamacro/clash v1.18.0
-	github.com/Kr328/tun2socket v0.0.0-20230614191318-dddbfaa28112
+	github.com/Dreamacro/clash v1.7.0
+	github.com/Kr328/tun2socket v0.0.0-20220414050025-d07c78d06d34
 	github.com/dlclark/regexp2 v1.10.0
 	github.com/miekg/dns v1.1.56
 	github.com/oschwald/geoip2-golang v1.9.0

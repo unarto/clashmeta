@@ -57,8 +57,8 @@ require (
 
 require (
 	cfa/blob v0.0.0-00010101000000-000000000000 // indirect
-	github.com/Dreamacro/clash v1.18.0 // indirect
-	github.com/Kr328/tun2socket v0.0.0-20230614191318-dddbfaa28112 // indirect
+	github.com/Dreamacro/clash v1.7.0 // indirect
+	github.com/Kr328/tun2socket v0.0.0-20220414050025-d07c78d06d34 // indirect
 	github.com/RyuaNerin/go-krypto v1.2.4 // indirect
 	github.com/Yawning/aez v0.0.0-20211027044916-e49e68abd344 // indirect
 	github.com/ajg/form v1.5.1 // indirect
