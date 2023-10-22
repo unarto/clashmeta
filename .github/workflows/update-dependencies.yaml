@@ -53,10 +53,10 @@ jobs:
           cd ${{ github.workspace }}/core/src/foss/golang/
           go get -u ${{ env.PACKAGES_DO_NOT_UPGRADE }}
 
-      # - name: Update Main Gomod
-      #   run: |
-      #     cd ${{ github.workspace }}/core/src/main/golang/native/
-      #     go get -u
+      - name: Update Main Gomod
+        run: |
+          cd ${{ github.workspace }}/core/src/main/golang/native/
+          go get -u -d ${{ env.PACKAGES_DO_NOT_UPGRADE }}
 
       - name: Create Pull Request
         id: cpr
