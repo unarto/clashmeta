@@ -9,9 +9,9 @@ on:
   workflow_dispatch:
 
 env:
-  # packages that should be fixed to certain version
+  # go dependencies that should be fixed to certain version
   PACKAGES_DO_NOT_UPGRADE: >-
-    github.com/Dreamacro/clash@v1.7.0
+    github.com/Dreamacro/clash@v1.7.1
     github.com/Kr328/tun2socket@v0.0.0-20220414050025-d07c78d06d34
 
 jobs:
