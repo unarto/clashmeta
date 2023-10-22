@@ -94,12 +94,21 @@ jobs:
         uses: gradle/gradle-build-action@v2
         with:
           arguments: --no-daemon app:assembleMetaRelease
+      
+      - name: Get real tag value (current or auto-bumped?)
+        id: real_tag
+        run: |
+          if [[ "${{ inputs.auto-bump-version }}" == "true" ]]; then
+            echo "::set-output name=tag::v${{ steps.bump-version.outputs.newVersionName }}"
+          else
+            echo "::set-output name=tag::$(git describe --tags --abbrev=0)
+          fi
 
       - name: Tag Repo
         uses: richardsimko/update-tag@v1
         with:
-          tag: v${{ steps.bump-version.outputs.newVersionName }}
-          tag_name: v${{ steps.bump-version.outputs.newVersionName }}
+          tag: ${{ steps.real_tag.outputs.tag }}
+          tag_name: ${{ steps.real_tag.outputs.tag }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
