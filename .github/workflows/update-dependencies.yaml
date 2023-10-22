@@ -69,11 +69,11 @@ jobs:
           draft: false
           body: |
             - Update Clash-Meta Core
-            - Update Go Module Dependecies.
+            - Update Go Module Dependecies
           labels: |
             Update
         
-      - name: Create PR outputs
+      - name: PR result
         if: ${{ steps.cpr.outputs.pull-request-number }}
         run: |
           echo "Pull Request Number - ${{ steps.cpr.outputs.pull-request-number }}"
