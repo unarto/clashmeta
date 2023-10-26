@@ -92,6 +92,8 @@
     <string name="vpn_service_options">VPN 서비스 옵션</string>
     <string name="bypass_private_network">사설 네트워크 제외</string>
     <string name="bypass_private_network_summary">사설 네트워크 주소를 제외합니다.</string>
+    <string name="ipv6_route">IPv6 경로</string>
+    <string name="ipv6_route_summary">IPv6 경로 활성화</string>
     <string name="dns_hijacking">DNS 하이재킹</string>
     <string name="dns_hijacking_summary">모든 DNS 패킷을 포함합니다.</string>
     <string name="block_loopback">로컬 루프백 차단</string>

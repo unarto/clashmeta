@@ -11,6 +11,8 @@
     <string name="behavior">行為</string>
     <string name="bypass_private_network">略過私有網路</string>
     <string name="bypass_private_network_summary">略過私有網路位址</string>
+    <string name="ipv6_route">IPv6 路由</string>
+    <string name="ipv6_route_summary">啟用 IPv6 路由</string>
     <string name="cancel">取消</string>
     <string name="clash_logcat">Clash Logcat</string>
     <string name="create_profile">建立設定檔</string>

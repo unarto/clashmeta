@@ -116,6 +116,8 @@
     <string name="vpn_service_options">Настройки VPN</string>
     <string name="bypass_private_network">Игнорировать частные сети</string>
     <string name="bypass_private_network_summary">Игнорировать адреса частных сетей</string>
+    <string name="ipv6_route">IPv6-маршрутизация</string>
+    <string name="ipv6_route_summary">Включить маршрутизацию IPv6</string>
     <string name="dns_hijacking">Перехват DNS</string>
     <string name="dns_hijacking_summary">Обрабатывать все DNS запросы</string>
     <string name="block_loopback">Заблокировать loopback</string>

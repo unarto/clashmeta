@@ -18,6 +18,8 @@ class TunModule(private val vpn: VpnService) : Module<Unit>(vpn) {
         val gateway: String,
         val portal: String,
         val dns: String,
+        val gateway6: String?,
+        val dns6: String?
     )
 
     private val connectivity = service.getSystemService<ConnectivityManager>()!!

@@ -92,6 +92,8 @@
     <string name="vpn_service_options">VPNサービスのオプション</string>
     <string name="bypass_private_network">プライベートネットワークをバイパスする</string>
     <string name="bypass_private_network_summary">プライベートネットワークアドレスをバイパスする</string>
+    <string name="ipv6_route">IPv6ルート</string>
+    <string name="ipv6_route_summary">IPv6ルーティングを有効にする</string>
     <string name="dns_hijacking">DNSハイジャック</string>
     <string name="dns_hijacking_summary">すべてのDNSパケットの処理</string>
     <string name="block_loopback">ループバックをブロックする</string>

@@ -131,7 +131,11 @@ class TunService : VpnService(), CoroutineScope by CoroutineScope(Dispatchers.De
 
         val device = with(Builder()) {
             // Interface address
-            addAddress(TUN_GATEWAY, TUN_SUBNET_PREFIX)
+            addAddress(TUN_VLAN4_CLIENT, TUN_VLAN4_SUBNET_PREFIX) // CLIENT
+
+            if (store.ipv6Route) {
+                addAddress(TUN_VLAN6_CLIENT, TUN_VLAN6_SUBNET_PREFIX)
+            }
 
             // Route
             if (store.bypassPrivateNetwork) {
@@ -140,9 +144,17 @@ class TunService : VpnService(), CoroutineScope by CoroutineScope(Dispatchers.De
                 }
 
                 // Route of virtual DNS
-                addRoute(TUN_DNS, 32)
+                addRoute(TUN_VLAN4_GATEWAY, 32)
+
+                if (store.ipv6Route) {
+                    addRoute("2000::", 3)
+                    addRoute(TUN_VLAN6_GATEWAY, 128)
+                }
             } else {
-                addRoute(NET_ANY, 0)
+                addRoute(TUN_VLAN4_ROUTE_DEFAULT, 0)
+                if (store.ipv6Route) {
+                    addRoute(TUN_VLAN6_ROUTE_DEFAULT, 0)
+                }
             }
 
             // Access Control
@@ -170,7 +182,11 @@ class TunService : VpnService(), CoroutineScope by CoroutineScope(Dispatchers.De
             setSession("Clash")
 
             // Virtual Dns Server
-            addDnsServer(TUN_DNS)
+            addDnsServer(TUN_VLAN4_DNS)
+
+            if (store.ipv6Route) {
+                addDnsServer(TUN_VLAN6_DNS)
+            }
 
             // Open MainActivity
             setConfigureIntent(
@@ -207,9 +223,11 @@ class TunService : VpnService(), CoroutineScope by CoroutineScope(Dispatchers.De
             TunModule.TunDevice(
                 fd = establish()?.detachFd()
                     ?: throw NullPointerException("Establish VPN rejected by system"),
-                gateway = "$TUN_GATEWAY/$TUN_SUBNET_PREFIX",
-                portal = TUN_PORTAL,
-                dns = if (store.dnsHijacking) NET_ANY else TUN_DNS,
+                gateway = "$TUN_VLAN4_CLIENT/$TUN_VLAN4_SUBNET_PREFIX",
+                portal = TUN_VLAN4_GATEWAY,
+                dns = if (store.dnsHijacking) TUN_VLAN4_ROUTE_DEFAULT else TUN_VLAN4_DNS,
+                gateway6 = if (store.ipv6Route) TUN_VLAN6_GATEWAY else null,
+                dns6 = if (store.dnsHijacking) TUN_VLAN6_ROUTE_DEFAULT else (if (store.ipv6Route) TUN_VLAN6_DNS else null),
             )
         }
 
@@ -218,11 +236,17 @@ class TunService : VpnService(), CoroutineScope by CoroutineScope(Dispatchers.De
 
     companion object {
         private const val TUN_MTU = 9000
-        private const val TUN_SUBNET_PREFIX = 30
-        private const val TUN_GATEWAY = "172.19.0.1"
-        private const val TUN_PORTAL = "172.19.0.2"
-        private const val TUN_DNS = TUN_PORTAL
-        private const val NET_ANY = "0.0.0.0"
+        private const val TUN_VLAN4_CLIENT = "172.19.0.1"
+        private const val TUN_VLAN4_GATEWAY = "172.19.0.2"
+        private const val TUN_VLAN4_DNS = TUN_VLAN4_GATEWAY
+        private const val TUN_VLAN4_SUBNET_PREFIX = 30
+        private const val TUN_VLAN4_ROUTE_DEFAULT = "0.0.0.0"
+
+        private const val TUN_VLAN6_CLIENT = "fdfe:dcba:9876::1"
+        private const val TUN_VLAN6_GATEWAY = "fdfe:dcba:9876::2"
+        private const val TUN_VLAN6_DNS = TUN_VLAN6_GATEWAY
+        private const val TUN_VLAN6_SUBNET_PREFIX = 126
+        private const val TUN_VLAN6_ROUTE_DEFAULT = "::"
 
         private val HTTP_PROXY_LOCAL_LIST: List<String> = listOf(
             "localhost",

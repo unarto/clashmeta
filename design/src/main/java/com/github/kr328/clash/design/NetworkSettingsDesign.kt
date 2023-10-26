@@ -57,6 +57,13 @@ class NetworkSettingsDesign(
             category(R.string.vpn_service_options)
 
             switch(
+                value = srvStore::ipv6Route,
+                title = R.string.ipv6_route,
+                summary = R.string.ipv6_route_summary,
+                configure = vpnDependencies::add,
+            )
+
+            switch(
                 value = srvStore::bypassPrivateNetwork,
                 title = R.string.bypass_private_network,
                 summary = R.string.bypass_private_network_summary,

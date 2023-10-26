@@ -25,6 +25,11 @@ class ServiceStore(context: Context) {
         defaultValue = true
     )
 
+    var ipv6Route: Boolean by store.boolean(
+        key = "ipv6_route",
+        defaultValue = true
+    )
+
     var accessControlMode: AccessControlMode by store.enum(
         key = "access_control_mode",
         defaultValue = AccessControlMode.AcceptAll,
