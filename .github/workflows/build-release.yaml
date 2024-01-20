@@ -119,40 +119,9 @@ jobs:
               ],
             }
 
-      - name: Set up Python
-        uses: actions/setup-python@v2
+      - name: Push to Telegram
+        uses: appleboy/telegram-action@v0.2.0
         with:
-           python-version: '3.11'
-
-      - name: Install Dependencies
-        run: pip install requests
-
-      - name: Forward Release to Telegram
-        env:
-          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          TELEGRAM_USER_ID: ${{ secrets.TELEGRAM_USER_ID }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          TAG_NAME=${{ github.event.release.tag_name }}
-          RELEASE_NOTES=${{ github.event.release.body }}
-          REPO_NAME=${{ github.repository }}
-
-          # Get release assets
-          ASSETS=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
-            "https://api.github.com/repos/$REPO_NAME/releases/${{ github.event.release.id }}/assets" | jq -r '.[].name')
-          - name: Debug API response
-                run: |
-                API_RESPONSE=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
-                  "https://api.github.com/repos/$REPO_NAME/releases/${{ github.event.release.id }}/assets")
-             echo "API_RESPONSE: $API_RESPONSE"
-           ASSETS=$(echo "$API_RESPONSE" | jq -r '.[].name')
-          echo "ASSETS: $ASSETS"
-
-      
-          # Generate message with release information and files
-          MESSAGE="New release: $TAG_NAME\n\nRelease notes:\n$RELEASE_NOTES\n\nRelease files:\n$ASSETS"
-
-          # Send message to Telegram
-          curl -s -X POST https://api.telegram.org/bot$TELEGRAM_BOT_TOKEN/sendMessage \
-            -d chat_id=$TELEGRAM_USER_ID \
-            -d text="$MESSAGE"
+          to: ${{ secrets.TELEGRAM_USER_ID }}
+          token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          document: app/build/outputs/apk/meta/release/*
