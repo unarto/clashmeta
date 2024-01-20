@@ -132,8 +132,9 @@ jobs:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_USER_ID: ${{ secrets.TELEGRAM_USER_ID }}
         run: |
-          TAG_NAME=${{ inputs.release-tag }}
+          TAG_NAME=${{ github.event.release.tag_name }}
+          RELEASE_NOTES=${{ github.event.release.body }}
 
           curl -s -X POST https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage \
              -d chat_id=${TELEGRAM_USER_ID} \
-             -d text="New release: ${TAG_NAME}\n\nRelease}"
+             -d text="New release: ${TAG_NAME}\n\nRelease notes:\n${RELEASE_NOTES}"
