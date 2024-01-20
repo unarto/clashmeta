@@ -91,7 +91,7 @@ jobs:
       - name: Push releases to Telegram
         run: |
           TELEGRAM_BOT_TOKEN="${{ secrets.TELEGRAM_BOT_TOKEN }}"
-          CHAT_ID="${{ secrets.TELEGRAM_BOT_CHAT_ID }}"  # Use the secret here
+          CHAT_ID="${{ secrets.TELEGRAM_USER_ID }}"  # Use the secret here
 
           release_message="🚀 New releases!\n\n"  # Initial message
 
