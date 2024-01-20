@@ -127,11 +127,6 @@ jobs:
 #          document: app/build/outputs/apk/meta/release/*
 
 
-      - name: Get Release Notes
-        id: release-notes
-        run: |
-          RELEASE_NOTES=$(cat release-notes.md)
-          echo "::set-output name=notes::$RELEASE_NOTES"
 
       - name: Package Releases
         run: |
@@ -151,9 +146,6 @@ jobs:
           token: ${{ secrets.TELEGRAM_TOKEN }}
           message: |
             *New Release!*
-            
-            Release Notes:
-            ${{ steps.release-notes.outputs.notes }}
 
             Files:
             ${{ steps.package-releases.outputs.release-files }}
