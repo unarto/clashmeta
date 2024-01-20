@@ -122,7 +122,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
-           python-version: 3.x
+           python-version: '3.11'
 
       - name: Install Dependencies
         run: pip install requests
@@ -132,9 +132,8 @@ jobs:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_USER_ID: ${{ secrets.TELEGRAM_USER_ID }}
         run: |
-          TAG_NAME=${{ github.event.release.tag_name }}
-          RELEASE_NOTES=${{ github.event.release.body }}
+          TAG_NAME=${{ inputs.release-tag }}
 
           curl -s -X POST https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage \
              -d chat_id=${TELEGRAM_USER_ID} \
-             -d text="New release: ${TAG_NAME}\n\nRelease notes:\n${RELEASE_NOTES}"
+             -d text="New release: app/build/outputs/apk/meta/release/* }"
