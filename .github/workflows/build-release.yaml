@@ -140,7 +140,15 @@ jobs:
           # Get release assets
           ASSETS=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
             "https://api.github.com/repos/$REPO_NAME/releases/${{ github.event.release.id }}/assets" | jq -r '.[].name')
+          - name: Debug API response
+                run: |
+                API_RESPONSE=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
+                  "https://api.github.com/repos/$REPO_NAME/releases/${{ github.event.release.id }}/assets")
+             echo "API_RESPONSE: $API_RESPONSE"
+           ASSETS=$(echo "$API_RESPONSE" | jq -r '.[].name')
+          echo "ASSETS: $ASSETS"
 
+      
           # Generate message with release information and files
           MESSAGE="New release: $TAG_NAME\n\nRelease notes:\n$RELEASE_NOTES\n\nRelease files:\n$ASSETS"
 
