@@ -119,9 +119,41 @@ jobs:
               ],
             }
 
+#      - name: Push to Telegram
+#        uses: appleboy/telegram-action@v0.1.1
+#        with:
+#          to: ${{ secrets.TELEGRAM_USER_ID }}
+#          token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+#          document: app/build/outputs/apk/meta/release/*
+
+
+      - name: Get Release Notes
+        id: release-notes
+        run: |
+          RELEASE_NOTES=$(cat release-notes.md)
+          echo "::set-output name=notes::$RELEASE_NOTES"
+
+      - name: Package Releases
+        run: |
+          cd app/build/outputs/apk/meta/release/
+          FILES=$(ls *)
+          RELEASE_FILES=""
+          for file in $FILES
+          do
+            RELEASE_FILES+="[$file](app/build/$file)\n"
+          done
+          echo "::set-output name=release-files::$RELEASE_FILES"
+
       - name: Push to Telegram
-        uses: appleboy/telegram-action@v0.1.1
+        uses: appleboy/telegram-action@v0.2.0
         with:
-          to: ${{ secrets.TELEGRAM_USER_ID }}
-          token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          document: app/build/outputs/apk/meta/release/*
+          to: ${{ secrets.TELEGRAM_TO }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          message: |
+            *New Release!*
+            
+            Release Notes:
+            ${{ steps.release-notes.outputs.notes }}
+
+            Files:
+            ${{ steps.package-releases.outputs.release-files }}
