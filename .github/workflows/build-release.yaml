@@ -126,22 +126,23 @@ jobs:
 #          token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
 #          document: app/build/outputs/apk/meta/release/*
 
-
-
-      - name: Upload Release
-        uses: softprops/action-gh-release@v1
-        if: ${{ success() }}
-        with:
-          tag_name: ${{ inputs.release-tag }}
-          files: app/build/outputs/apk/meta/release/*.apk
-          generate_release_notes: true
-
-      - name: Notify Telegram Bot
-        if: ${{ success() }}
+      - name: Push Release Info to Telegram
         run: |
-          curl -s -X POST \
-            https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendDocument \
-            -F chat_id=${{ secrets.TELEGRAM_CHAT_ID }} \
-            -F document=@app/build/outputs/apk/meta/release/your_release_file.apk \
-            -F caption="*New Release!* APK file" \
-            -F parse_mode=Markdown
+          # 获取所有APK文件列表
+          apk_list=$(ls app/build/outputs/apk/meta/release/*.apk)
+
+          # 创建消息内容
+          release_message="Something has been released.\n\n* Fixes and improvements\n"
+
+          # 列举APK文件
+          apk_counter=1
+          for apk_file in $apk_list; do
+            release_message+=" ${apk_counter}. $(basename $apk_file)\n"
+            ((apk_counter++))
+          done
+
+          # 推送消息到 Telegram，使用 Markdown 格式
+          curl -X POST -H "Content-Type: application/json" -d '{"chat_id": "'${{ secrets.TELEGRAM_USER_ID }}'", "text": "'"$release_message"'", "parse_mode": "Markdown"}' "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage"
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_USER_ID: ${{ secrets.TELEGRAM_USER_ID }}
