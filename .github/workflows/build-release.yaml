@@ -131,18 +131,20 @@ jobs:
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_USER_ID: ${{ secrets.TELEGRAM_USER_ID }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           TAG_NAME=${{ github.event.release.tag_name }}
           RELEASE_NOTES=${{ github.event.release.body }}
+          REPO_NAME=${{ github.repository }}
 
-        # Get release assets
-        ASSETS=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
-           "https://api.github.com/repos/${{ github.repository }}/releases/${{ github.event.release.id }}/assets" | jq -r '.[].name')
+          # Get release assets
+          ASSETS=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
+            "https://api.github.com/repos/$REPO_NAME/releases/${{ github.event.release.id }}/assets" | jq -r '.[].name')
 
-        # Generate message with release information and files
-        MESSAGE="New release: ${TAG_NAME}\n\nRelease notes:\n${RELEASE_NOTES}\n\nRelease files:\n${ASSETS}"
+          # Generate message with release information and files
+          MESSAGE="New release: $TAG_NAME\n\nRelease notes:\n$RELEASE_NOTES\n\nRelease files:\n$ASSETS"
 
           # Send message to Telegram
-        curl -s -X POST https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage \
-           -d chat_id=${TELEGRAM_USER_ID} \
-           -d text="${MESSAGE}"
+          curl -s -X POST https://api.telegram.org/bot$TELEGRAM_BOT_TOKEN/sendMessage \
+            -d chat_id=$TELEGRAM_USER_ID \
+            -d text="$MESSAGE"
