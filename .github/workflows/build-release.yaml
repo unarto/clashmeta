@@ -135,7 +135,7 @@ jobs:
           RELEASE_FILES=""
           for file in $FILES
           do
-            RELEASE_FILES+="[$file](app/build/outputs/apk/meta/release/$file)\n"
+            RELEASE_FILES+="[$file]($file)\n"
           done
           echo "::set-output name=release-files::$RELEASE_FILES"
 
