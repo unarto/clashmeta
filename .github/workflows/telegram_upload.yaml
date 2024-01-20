@@ -16,7 +16,7 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
-        python-version: 3.x
+        python-version: '3.11'
 
     - name: Install Dependencies
       run: |
@@ -30,5 +30,4 @@ jobs:
         RELEASE_NOTES=$(echo "${{ github.event.release.body }}")
 
         curl -s -X POST https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage \
-          -d chat_id=@YOUR_TELEGRAM_GROUP_NAME \
           -d text="New release: ${TAG_NAME}\n\nRelease notes:\n${RELEASE_NOTES}"
