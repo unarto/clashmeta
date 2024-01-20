@@ -128,24 +128,20 @@ jobs:
 
 
 
-      - name: Package Releases
-        run: |
-          cd app/build/outputs/apk/meta/release/
-          FILES=$(ls *)
-          RELEASE_FILES=""
-          for file in $FILES
-          do
-            RELEASE_FILES+="[$file]($file)\n"
-          done
-          echo "::set-output name=release-files::$RELEASE_FILES"
-
-      - name: Push to Telegram
-        uses: appleboy/telegram-action@v0.1.1
+      - name: Upload Release
+        uses: softprops/action-gh-release@v1
+        if: ${{ success() }}
         with:
-          to: ${{ secrets.TELEGRAM_USER_ID }}
-          token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          message: |
-            *New Release!*
+          tag_name: ${{ inputs.release-tag }}
+          files: app/build/outputs/apk/meta/release/*.apk
+          generate_release_notes: true
 
-            Files:
-            ${{ steps.package-releases.outputs.release-files }}
+      - name: Notify Telegram Bot
+        if: ${{ success() }}
+        run: |
+          curl -s -X POST \
+            https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendDocument \
+            -F chat_id=${{ secrets.TELEGRAM_CHAT_ID }} \
+            -F document=@app/build/outputs/apk/meta/release/your_release_file.apk \
+            -F caption="*New Release!* APK file" \
+            -F parse_mode=Markdown
