@@ -14,7 +14,7 @@ func CloseAllConnections() {
 
 func closeMatch(filter func(conn C.Connection) bool) {
 	statistic.DefaultManager.Range(func(c statistic.Tracker) bool {
-		if filter(cc) {
+		if filter(c) {
 			_ = c.Close()
 		}
 		return true
